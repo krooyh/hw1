@@ -13,7 +13,7 @@ RUN apk add --no-cache bash && \
 	apk add symfony-cli && \
 	apk del bash
 
-# Xdebug
+# Xdebug - this should be removed if this image is used on production
 RUN apk add --update linux-headers && pecl install xdebug && docker-php-ext-enable xdebug
 
 # Necessary build deps not longer needed
