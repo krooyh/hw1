@@ -8,3 +8,6 @@ stop:
 tests: up
 	docker-compose run --rm php ./bin/phpunit
 	make stop
+
+psalm:
+	docker-compose run --rm php ./vendor/bin/psalm.phar
