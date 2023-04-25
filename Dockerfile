@@ -13,6 +13,9 @@ RUN apk add --no-cache bash && \
 	apk add symfony-cli && \
 	apk del bash
 
+# Xdebug
+RUN apk add --update linux-headers && pecl install xdebug && docker-php-ext-enable xdebug
+
 # Necessary build deps not longer needed
 RUN apk del --no-cache ${PHPIZE_DEPS} \
     && docker-php-source delete
