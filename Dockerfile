@@ -16,6 +16,9 @@ RUN apk add --no-cache bash && \
 # Xdebug - this should be removed if this image is used on production
 RUN apk add --update linux-headers && pecl install xdebug && docker-php-ext-enable xdebug
 
+# mysql
+RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable pdo_mysql
+
 # Necessary build deps not longer needed
 RUN apk del --no-cache ${PHPIZE_DEPS} \
     && docker-php-source delete
