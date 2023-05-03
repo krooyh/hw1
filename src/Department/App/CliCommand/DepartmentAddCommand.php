@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Department\App\CliCommand;
 
 use App\Department\App\Command\AddDepartment;
-use App\Department\Domain\ValueObject\SalaryBonusType;
+use App\Shared\Domain\ValueObject\SalaryBonusType;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

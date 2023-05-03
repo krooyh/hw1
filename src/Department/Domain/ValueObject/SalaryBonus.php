@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Department\Domain\ValueObject;
 
+use App\Shared\Domain\ValueObject\SalaryBonusType;
+
 class SalaryBonus
 {
     public function __construct(

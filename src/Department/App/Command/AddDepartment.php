@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Department\App\Command;
 
-use App\Department\Domain\ValueObject\SalaryBonusType;
+use App\Shared\Domain\ValueObject\SalaryBonusType;
 use Symfony\Component\Uid\Ulid;
 use Symfony\Component\Validator\Constraints;
 
@@ -38,5 +38,19 @@ class AddDepartment
     public function getSalaryBonusValue(): float
     {
         return $this->salaryBonusValue;
+    }
+
+    #[Constraints\IsTrue]
+    private function isCorrectBonusValue(): bool
+    {
+        if ($this->salaryBonusType ===SalaryBonusType::FIXED) {
+            return true;
+        }
+
+        if ($this->salaryBonusType === SalaryBonusType::PERCENTAGE) {
+            return $this->salaryBonusValue >= 0 && $this->salaryBonusValue <= 100;
+        }
+
+        return false;
     }
 }

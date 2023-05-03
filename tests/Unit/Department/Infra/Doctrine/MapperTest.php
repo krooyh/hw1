@@ -6,9 +6,9 @@ namespace TestsUnit\Department\Infra\Doctrine;
 
 use App\Department\Domain\Department as DomainDepartment;
 use App\Department\Domain\ValueObject\SalaryBonus;
-use App\Department\Domain\ValueObject\SalaryBonusType;
 use App\Department\Infra\Doctrine\Entity\Department;
 use App\Department\Infra\Doctrine\Mapper;
+use App\Shared\Domain\ValueObject\SalaryBonusType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Uid\Ulid;
 

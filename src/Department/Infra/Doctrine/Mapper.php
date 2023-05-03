@@ -6,8 +6,8 @@ namespace App\Department\Infra\Doctrine;
 
 use App\Department\Domain\Department as DomainDepartment;
 use App\Department\Domain\ValueObject\SalaryBonus;
-use App\Department\Domain\ValueObject\SalaryBonusType;
 use App\Department\Infra\Doctrine\Entity\Department;
+use App\Shared\Domain\ValueObject\SalaryBonusType;
 use Symfony\Component\Uid\Ulid;
 
 class Mapper

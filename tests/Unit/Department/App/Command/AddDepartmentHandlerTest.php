@@ -8,7 +8,7 @@ use App\Department\App\Command\AddDepartment;
 use App\Department\App\Command\AddDepartmentHandler;
 use App\Department\Domain\Department;
 use App\Department\Domain\DepartmentRepositoryInterface;
-use App\Department\Domain\ValueObject\SalaryBonusType;
+use App\Shared\Domain\ValueObject\SalaryBonusType;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Uid\Ulid;
@@ -56,5 +56,10 @@ class AddDepartmentHandlerTest extends TestCase
             );
 
         $handler($command);
+    }
+
+    public function testValidationFailed(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
     }
 }
