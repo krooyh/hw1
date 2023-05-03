@@ -14,6 +14,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Department/Infra/Doctrine/Entity'
                 is_bundle: false
                 alias: Department
+            Employee:
+                type: attribute
+                prefix: App\Employee\Infra\Doctrine\Entity
+                dir: '%kernel.project_dir%/src/Employee/Infra/Doctrine/Entity'
+                is_bundle: false
+                alias: Employee
 
 when@test:
     doctrine:
