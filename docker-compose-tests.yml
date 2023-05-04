@@ -1,28 +1,31 @@
 version: '3.9'
 services:
-  php:
+  php_tests:
     build:
       context: .
     volumes:
       - ./:/var/www/html
-  nginx:
+    depends_on:
+      database_tests:
+        condition: service_healthy
+  nginx_tests:
     image: nginx:1-alpine
     depends_on:
-      - php
+      - php_tests
     ports:
       - "80:80"
     volumes:
       - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
       - ./:/var/www/html/
-  database:
+  database_tests:
     image: 'mysql:8'
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: app_db
     ports:
       - '3306:3306'
-  wait-for-db:
-    image: atkrad/wait4x
-    depends_on:
-      - database
-    command: tcp database:3306 -t 30s -i 250ms
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=password --execute \"SHOW DATABASES;\""
+      interval: 2s
+      timeout: 20s
+      retries: 10
