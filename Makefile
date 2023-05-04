@@ -12,7 +12,7 @@ stop-tests:
 	docker-compose -f docker-compose-tests.yml stop
 	docker-compose -f docker-compose-tests.yml rm -f -v
 
-tests: stop-tests tests-up psalm init_db_tests
+tests: stop-tests tests-up psalm init-db-tests
 	docker-compose run --rm php ./bin/phpunit
 	make stop-tests
 
@@ -27,10 +27,10 @@ init-db-tests:
 	docker-compose -f docker-compose-tests.yml run --rm php_tests bin/console doctrine:cache:clear-metadata
 	docker-compose -f docker-compose-tests.yml run --rm php_tests bin/console doctrine:schema:create --env=test
 
-build_docker_php:
+build-docker-php:
 	docker-compose run --rm composer install --optimize-autoloader --ignore-platform-reqs
 	docker-compose run --rm bin/console cache:clear
 	docker-compose run --rm bin/console cache:warmup
 
-build: up build_docker_php init-db stop
+build: up build-docker-php init-db stop
 
