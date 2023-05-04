@@ -1,5 +1,3 @@
-# Tidio recruitment task
-
 ## Installation
 
 ```bash
