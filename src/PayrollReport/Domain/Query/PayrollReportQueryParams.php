@@ -20,7 +20,7 @@ class PayrollReportQueryParams
         #[Assert\Positive]
         #[Assert\Range(min: 1, max: 12)]
         private readonly int $month,
-        private readonly ?OrderBy $orderBy,
+        private readonly ?OrderBy $orderBy = null,
     ) {
     }
 
