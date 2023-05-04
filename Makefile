@@ -27,9 +27,9 @@ init-db-tests:
 	docker-compose -f docker-compose-tests.yml run --rm php_tests bin/console doctrine:schema:create --env=test
 
 build-docker-php:
-	docker-compose run --rm composer install --optimize-autoloader --ignore-platform-reqs
-	docker-compose run --rm bin/console cache:clear
-	docker-compose run --rm bin/console cache:warmup
+	docker-compose run --rm php composer install --optimize-autoloader --ignore-platform-reqs
+	docker-compose run --rm php bin/console cache:clear
+	docker-compose run --rm php bin/console cache:warmup
 
 build: up build-docker-php init-db stop
 
