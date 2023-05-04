@@ -21,12 +21,6 @@ doctrine:
                 is_bundle: false
                 alias: Employee
 
-when@test:
-    doctrine:
-        dbal:
-            # "TEST_TOKEN" is typically set by ParaTest
-            dbname_suffix: '_test%env(default::TEST_TOKEN)%'
-
 when@prod:
     doctrine:
         orm:
