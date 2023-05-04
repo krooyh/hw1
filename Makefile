@@ -20,7 +20,6 @@ psalm:
 	docker-compose run --rm php ./vendor/bin/psalm.phar
 
 init-db:
-	docker-compose run --rm php bin/console bin/console doctrine:database:create
 	docker-compose run --rm php bin/console doctrine:migrations:migrate
 
 init-db-tests:
