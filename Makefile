@@ -12,12 +12,15 @@ stop-tests:
 	docker-compose -f docker-compose-tests.yml stop
 	docker-compose -f docker-compose-tests.yml rm -f -v
 
-tests: stop-tests tests-up psalm init-db-tests
+tests: stop-tests tests-up _psalm-tests init-db-tests
 	docker-compose run --rm php ./bin/phpunit
 	make stop-tests
 
 psalm:
 	docker-compose run --rm php ./vendor/bin/psalm.phar
+
+_psalm-tests:
+	docker-compose -f docker-compose-tests.yml run --rm php_tests ./vendor/bin/psalm.phar
 
 init-db:
 	docker-compose run --rm php bin/console --no-interaction doctrine:migrations:migrate
