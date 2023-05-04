@@ -67,11 +67,19 @@ class FixedAmountCalculatorTest extends TestCase
                 new CalculationParamsDTO(
                     200.00,
                     100,
-                    new DateTimeImmutable('2023-01-01'), //same month, day is omitted
+                    new DateTimeImmutable('2023-01-01'),
                 ),
                 0.00
             ],
-
+            '20 days worked' => [
+                new DateTimeImmutable('2023-05-04'),
+                new CalculationParamsDTO(
+                    100.00,
+                    0,
+                    new DateTimeImmutable('2003-01-01'),
+                ),
+                1000.00 //calculation capped at 10 years
+            ],
         ];
     }
 }
