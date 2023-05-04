@@ -20,7 +20,7 @@ psalm:
 	docker-compose run --rm php ./vendor/bin/psalm.phar
 
 init-db:
-	docker-compose run --rm php bin/console doctrine:migrations:migrate
+	docker-compose run --rm php bin/console --no-interaction doctrine:migrations:migrate
 
 init-db-tests:
 	docker-compose -f docker-compose-tests.yml run --rm php_tests bin/console doctrine:cache:clear-metadata
