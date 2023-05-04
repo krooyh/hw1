@@ -5,6 +5,9 @@ services:
       context: .
     volumes:
       - ./:/var/www/html
+    depends_on:
+      database:
+        condition: service_healthy
   nginx:
     image: nginx:1-alpine
     depends_on:
@@ -21,8 +24,10 @@ services:
       MYSQL_DATABASE: app_db
     ports:
       - '3306:3306'
-  wait-for-db:
-    image: atkrad/wait4x
-    depends_on:
-      - database
-    command: tcp database:3306 -t 30s -i 250ms
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=password --execute \"SHOW DATABASES;\""
+      interval: 1s
+      timeout: 20s
+      retries: 20
+
+
