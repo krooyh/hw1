@@ -13,7 +13,7 @@ stop-tests:
 	docker-compose -f docker-compose-tests.yml rm -f -v
 
 tests: stop-tests tests-up _psalm-tests init-db-tests
-	docker-compose -f docker-compose-tests.yml run --rm php ./bin/phpunit
+	docker-compose -f docker-compose-tests.yml run --rm php_tests ./bin/phpunit
 	make stop-tests
 
 psalm:
