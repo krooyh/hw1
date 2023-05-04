@@ -26,8 +26,8 @@ class EmployeeReportFactory
     public function create(EmployeeReportDTO $dto): EmployeeReport
     {
         $bonusAmount = $this->bonusCalculator->calculate(
+            $dto->salaryBonusType,
             new CalculationParamsDTO(
-                $dto->salaryBonusType,
                 $dto->salaryBonusValue,
                 $dto->salaryAmount,
                 $dto->employmentDate

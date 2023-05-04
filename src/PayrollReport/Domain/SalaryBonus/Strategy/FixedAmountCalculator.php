@@ -27,8 +27,9 @@ class FixedAmountCalculator implements CalculatorStrategyInterface
         $employmentDate = $employmentDate->setDate(
             (int)$dto->employmentDate->format('Y'),
             (int)$dto->employmentDate->format('m'),
-            1
+            1,
         );
+        $employmentDate = $employmentDate->setTime(0, 0);
 
         $yearsWorked = $employmentDate->diff($this->clock->firstDayOfCurrentMonth())->y;
 

@@ -6,6 +6,7 @@ namespace App\PayrollReport\Domain\SalaryBonus;
 
 use App\PayrollReport\Domain\Exception\SalaryBonusTypeNotSupported;
 use App\PayrollReport\Domain\SalaryBonus\Strategy\CalculatorStrategyInterface;
+use App\Shared\Domain\ValueObject\SalaryBonusType;
 
 class SalaryBonusCalculator
 {
@@ -23,9 +24,9 @@ class SalaryBonusCalculator
     /**
      * @throws SalaryBonusTypeNotSupported
      */
-    public function calculate(CalculationParamsDTO $dto): float {
+    public function calculate(SalaryBonusType $salaryBonusType, CalculationParamsDTO $dto): float {
         foreach ($this->calculators as $calculator) {
-            if ($calculator->supports($dto->salaryBonusType)) {
+            if ($calculator->supports($salaryBonusType)) {
                 return $calculator->calculate($dto);
             }
         }

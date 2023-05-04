@@ -14,10 +14,11 @@ class Clock implements ClockInterface
     public function firstDayOfCurrentMonth(): \DateTimeImmutable
     {
         $now = $this->now();
-        return $now->setDate(
+        $now = $now->setDate(
             (int)$now->format('Y'),
             (int)$now->format('m'),
             1
         );
+        return $now->setTime(0, 0);
     }
 }
