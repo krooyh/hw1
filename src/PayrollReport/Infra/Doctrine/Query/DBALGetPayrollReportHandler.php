@@ -65,8 +65,6 @@ class DBALGetPayrollReportHandler
         ->andWhere('e.termination_date >= :reportDate OR e.termination_date IS NULL')
         ->setParameter('reportDate', $reportDate, Types::DATE_IMMUTABLE);
 
-
-
         foreach ($queryParams->getFilters() as $filter) {
             $qb->andWhere(
                 sprintf('%s = :%s', $this->fieldMap->getFilterFieldName($filter->field), $filter->field->value)
