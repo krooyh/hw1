@@ -43,7 +43,8 @@ class PercentageCalculatorTest extends TestCase
                 new CalculationParamsDTO(
                     100.00,
                     1000,
-                    new DateTimeImmutable('2020-01-01'),
+                    new DateTimeImmutable(),
+                    new DateTimeImmutable()
                 ),
                 1000.00
             ],
@@ -51,7 +52,8 @@ class PercentageCalculatorTest extends TestCase
                 new CalculationParamsDTO(
                     20.00,
                     1000,
-                    new DateTimeImmutable('2020-01-01'),
+                    new DateTimeImmutable(),
+                    new DateTimeImmutable(),
                 ),
                 200.00
             ],
