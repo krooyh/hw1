@@ -22,6 +22,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: app_db
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
     ports:
       - '3306:3306'
     healthcheck:
