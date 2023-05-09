@@ -7,8 +7,8 @@ namespace App\PayrollReport\Domain\ValueObject;
 class Employee
 {
     public function __construct(
-        public readonly string $name,
-        public readonly string $surname,
+        private readonly string $name,
+        private readonly string $surname,
     ) {
     }
 
