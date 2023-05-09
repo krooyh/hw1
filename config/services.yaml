@@ -23,5 +23,5 @@ services:
     App\PayrollReport\Domain\SalaryBonus\SalaryBonusCalculator:
         class: App\PayrollReport\Domain\SalaryBonus\SalaryBonusCalculator
         calls:
-            - setCalculator: ['@App\PayrollReport\Domain\SalaryBonus\Strategy\FixedAmountCalculator']
-            - setCalculator: ['@App\PayrollReport\Domain\SalaryBonus\Strategy\PercentageCalculator']
+            - addCalculator: ['@App\PayrollReport\Domain\SalaryBonus\Strategy\FixedAmountCalculator']
+            - addCalculator: ['@App\PayrollReport\Domain\SalaryBonus\Strategy\PercentageCalculator']

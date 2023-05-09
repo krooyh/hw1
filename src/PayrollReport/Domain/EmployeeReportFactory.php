@@ -12,6 +12,9 @@ use App\PayrollReport\Domain\ValueObject\Employee;
 use App\PayrollReport\Domain\ValueObject\EmployeeReport;
 use App\PayrollReport\Domain\ValueObject\EmployeeReportDTO;
 use App\PayrollReport\Domain\ValueObject\MonthlySalary;
+use DateTimeImmutable;
+use Exception;
+use function sprintf;
 
 class EmployeeReportFactory
 {
@@ -22,6 +25,7 @@ class EmployeeReportFactory
 
     /**
      * @throws SalaryBonusTypeNotSupported
+     * @throws Exception
      */
     public function create(EmployeeReportDTO $dto): EmployeeReport
     {
@@ -30,7 +34,8 @@ class EmployeeReportFactory
             new CalculationParamsDTO(
                 $dto->salaryBonusValue,
                 $dto->salaryAmount,
-                $dto->employmentDate
+                $dto->employmentDate,
+                $this->getCalculationDate($dto->reportYear, $dto->reportMonth),
             )
         );
 
@@ -39,5 +44,13 @@ class EmployeeReportFactory
             new Department($dto->departmentName),
             new MonthlySalary($dto->salaryAmount, $dto->salaryBonusType, $bonusAmount),
         );
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function getCalculationDate(int $reportYear, int $reportMonth): DateTimeImmutable
+    {
+        return new DateTimeImmutable(sprintf('%d-%d', $reportYear, $reportMonth));
     }
 }

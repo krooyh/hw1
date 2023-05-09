@@ -5,17 +5,12 @@ declare(strict_types=1);
 namespace App\PayrollReport\Domain\SalaryBonus\Strategy;
 
 use App\PayrollReport\Domain\SalaryBonus\CalculationParamsDTO;
-use App\Shared\App\Clock\ClockInterface;
 use App\Shared\Domain\ValueObject\SalaryBonusType;
 
 class FixedAmountCalculator implements CalculatorStrategyInterface
 {
     private const YEAR_COUNT_STOP = 10;
 
-    public function __construct(
-        private readonly ClockInterface $clock
-    ) {
-    }
     public function supports(SalaryBonusType $salaryBonusType): bool
     {
         return SalaryBonusType::FIXED === $salaryBonusType;
@@ -23,16 +18,23 @@ class FixedAmountCalculator implements CalculatorStrategyInterface
 
     public function calculate(CalculationParamsDTO $dto): float
     {
-        $employmentDate = new \DateTimeImmutable();
-        $employmentDate = $employmentDate->setDate(
-            (int)$dto->employmentDate->format('Y'),
-            (int)$dto->employmentDate->format('m'),
-            1,
-        );
-        $employmentDate = $employmentDate->setTime(0, 0);
+        $employmentDate = $this->getFirstDayOfMonthDate($dto->employmentDate);
+        $calculationDate = $this->getFirstDayOfMonthDate($dto->calculationDate);
 
-        $yearsWorked = $employmentDate->diff($this->clock->firstDayOfCurrentMonth())->y;
+        $yearsWorked = $employmentDate->diff($calculationDate)->y;
 
         return $dto->salaryBonusValue * min($yearsWorked, self::YEAR_COUNT_STOP);
+    }
+
+    private function getFirstDayOfMonthDate(\DateTimeImmutable $date): \DateTimeImmutable
+    {
+        $newDate = new \DateTimeImmutable();
+        $newDate = $newDate->setDate(
+            (int)$date->format('Y'),
+            (int)$date->format('m'),
+            1,
+        );
+
+        return $newDate->setTime(0, 0);
     }
 }

@@ -16,7 +16,7 @@ class SalaryBonusCalculator
      */
     private array $calculators = [];
 
-    public function setCalculator(CalculatorStrategyInterface $calculatorStrategy): void
+    public function addCalculator(CalculatorStrategyInterface $calculatorStrategy): void
     {
         $this->calculators[] = $calculatorStrategy;
     }

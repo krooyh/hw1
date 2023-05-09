@@ -10,6 +10,7 @@ class CalculationParamsDTO
         public readonly float $salaryBonusValue,
         public readonly float $salaryAmount,
         public readonly \DateTimeImmutable $employmentDate,
+        public readonly \DateTimeImmutable $calculationDate,
     ) {
     }
 }
