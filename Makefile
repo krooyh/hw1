@@ -7,15 +7,16 @@ stop:
 
 tests-up:
 	docker-compose -f docker-compose-tests.yml up -d --remove-orphans
+	make init-db-tests
 
-stop-tests:
+tests-stop:
 	docker-compose -f docker-compose-tests.yml stop
 	docker-compose -f docker-compose-tests.yml rm -f -v
 
-tests: stop-tests tests-up _psalm-tests init-db-tests
+tests: tests-stop tests-up _psalm-tests init-db-tests
 	docker-compose -f docker-compose-tests.yml run --rm php composer install --optimize-autoloader --ignore-platform-reqs
 	docker-compose -f docker-compose-tests.yml run --rm php_tests ./bin/phpunit
-	make stop-tests
+	make tests-stop
 
 psalm:
 	docker-compose run --rm php ./vendor/bin/psalm.phar
