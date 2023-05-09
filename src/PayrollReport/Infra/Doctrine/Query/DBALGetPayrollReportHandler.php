@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\PayrollReport\Infra\Doctrine\Query;
 
 use App\PayrollReport\App\Query\GetPayrollReport;
+use App\PayrollReport\Domain\EmployeeReportDTO;
 use App\PayrollReport\Domain\EmployeeReportFactory;
 use App\PayrollReport\Domain\Exception\SalaryBonusTypeNotSupported;
 use App\PayrollReport\Domain\Query\OrderBy;
 use App\PayrollReport\Domain\Query\OrderDirection;
 use App\PayrollReport\Domain\Query\OrderField;
 use App\PayrollReport\Domain\ValueObject\EmployeeReport;
-use App\PayrollReport\Domain\ValueObject\EmployeeReportDTO;
 use App\PayrollReport\Domain\ValueObject\PayrollReport;
 use App\PayrollReport\Infra\Doctrine\Query\Exception\FilterFieldNotSupportedException;
 use App\PayrollReport\Infra\Doctrine\Query\Exception\OrderFieldNotSupportedException;
@@ -43,9 +43,11 @@ class DBALGetPayrollReportHandler
     public function __invoke(GetPayrollReport $query): PayrollReport
     {
         $queryParams = $query->getParams();
+        $reportYear = $queryParams->getYear();
+        $reportMonth = $queryParams->getMonth();
 
         $reportDate = new DateTimeImmutable();
-        $reportDate = $reportDate->setDate($queryParams->getYear(), $queryParams->getMonth(), 1);
+        $reportDate = $reportDate->setDate($reportYear, $reportMonth, 1)->setTime(0, 0);
 
         $qb = $this->em->getConnection()->createQueryBuilder();
 
@@ -85,8 +87,10 @@ class DBALGetPayrollReportHandler
         $results = $qb->fetchAllAssociative();
 
         $employeeReports = array_map(
-            function (array $row): EmployeeReport {
+            function (array $row) use ($reportYear, $reportMonth): EmployeeReport {
                 return $this->employeeReportFactory->create(
+                    $reportYear,
+                    $reportMonth,
                     new EmployeeReportDTO(
                         SalaryBonusType::from((int)$row['salary_bonus_type']),
                         (float)$row['salary_bonus_value'],
@@ -107,7 +111,7 @@ class DBALGetPayrollReportHandler
             $employeeReports = $this->sortEmployeeReports($employeeReports, $orderBy);
         }
 
-        return new PayrollReport($queryParams->getYear(), $queryParams->getMonth(), $employeeReports);
+        return new PayrollReport($reportYear, $reportMonth, $employeeReports);
     }
 
     /**

@@ -10,7 +10,6 @@ use App\PayrollReport\Domain\SalaryBonus\SalaryBonusCalculator;
 use App\PayrollReport\Domain\ValueObject\Department;
 use App\PayrollReport\Domain\ValueObject\Employee;
 use App\PayrollReport\Domain\ValueObject\EmployeeReport;
-use App\PayrollReport\Domain\ValueObject\EmployeeReportDTO;
 use App\PayrollReport\Domain\ValueObject\MonthlySalary;
 use DateTimeImmutable;
 use Exception;
@@ -27,7 +26,7 @@ class EmployeeReportFactory
      * @throws SalaryBonusTypeNotSupported
      * @throws Exception
      */
-    public function create(EmployeeReportDTO $dto): EmployeeReport
+    public function create(int $year, int $month, EmployeeReportDTO $dto): EmployeeReport
     {
         $bonusAmount = $this->bonusCalculator->calculate(
             $dto->salaryBonusType,
@@ -35,7 +34,7 @@ class EmployeeReportFactory
                 $dto->salaryBonusValue,
                 $dto->salaryAmount,
                 $dto->employmentDate,
-                $this->getCalculationDate($dto->reportYear, $dto->reportMonth),
+                $this->getCalculationDate($year, $month),
             )
         );
 
