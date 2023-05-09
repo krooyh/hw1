@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace App\PayrollReport\App\CliCommand;
+namespace App\UI\Cli\PayrollReport;
 
-use App\PayrollReport\App\Formatter\SymfonyCommandTableFormatter;
 use App\PayrollReport\App\Query\GetPayrollReport;
 use App\PayrollReport\Domain\Query\Filter;
 use App\PayrollReport\Domain\Query\FilterField;
@@ -31,7 +30,7 @@ use Throwable;
     name: 'app:payroll_report:get',
     description: 'Get payroll report monthly',
 )]
-class GetPayrollReportCommand extends Command
+class SymfonyGetPayrollReportCommand extends Command
 {
     public function __construct(
         private readonly MessageBusInterface $queryBus,

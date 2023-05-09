@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\PayrollReport\App\Formatter;
+namespace App\UI\Cli\PayrollReport;
 
 use App\PayrollReport\Domain\ValueObject\EmployeeReport;
 use App\PayrollReport\Domain\ValueObject\PayrollReport;

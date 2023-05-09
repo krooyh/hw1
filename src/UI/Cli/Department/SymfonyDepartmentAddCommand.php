@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Department\App\CliCommand;
+namespace App\UI\Cli\Department;
 
 use App\Department\App\Command\AddDepartment;
 use App\Shared\Domain\ValueObject\SalaryBonusType;
@@ -21,7 +21,7 @@ use Symfony\Component\Uid\Ulid;
     name: 'app:department:add',
     description: 'Add new department',
 )]
-class DepartmentAddCommand extends Command
+class SymfonyDepartmentAddCommand extends Command
 {
     public function __construct(
         private readonly MessageBusInterface $commandBus,
