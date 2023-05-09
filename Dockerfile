@@ -1,5 +1,5 @@
 FROM composer:2 as composer
-FROM php:8.2-fpm-alpine as base
+FROM php:8.1-fpm-alpine as base
 
 # Necessary tools
 RUN apk add --update --no-cache ${PHPIZE_DEPS} git curl
